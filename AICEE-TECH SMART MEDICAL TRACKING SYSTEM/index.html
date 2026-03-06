@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AICEE-TEC — Smart Medical Record Tracking System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       AUTH SCREEN
+  ════════════════════════════════════════════════ -->
+  <div id="auth-screen" class="screen active">
+    <div class="auth-bg">
+      <div class="auth-card">
+
+        <!-- Logo -->
+        <div class="auth-logo">
+          <div class="auth-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="auth-logo-title">AICEE-TECH</h1>
+            <p class="auth-logo-sub">Smart Medical Record Tracking System</p>
+          </div>
+        </div>
+
+        <!-- LOGIN PANEL -->
+        <div id="panel-login" class="auth-panel active">
+          <h2 class="panel-title">Welcome Back</h2>
+          <p class="panel-sub">Sign in to your account</p>
+          <form id="form-login" novalidate>
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" placeholder="admin@clinic.com" autocomplete="username" />
+              <span class="field-error" id="err-login-email"></span>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <div class="input-icon-wrap">
+                <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
+                <button type="button" class="btn-eye" data-target="login-password">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <span class="field-error" id="err-login-password"></span>
+            </div>
+            <span class="field-error form-error" id="err-login-global"></span>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+          <div class="auth-links">
+            <a href="#" id="link-forgot">Forgot Password?</a>
+          </div>
+          <p class="auth-note">Accounts are provisioned by a Clinic Admin.</p>
+        </div>
+
+        <!-- FORGOT PASSWORD PANEL -->
+        <div id="panel-forgot" class="auth-panel">
+          <h2 class="panel-title">Reset Password</h2>
+          <p class="panel-sub">We'll help you get back in</p>
+
+          <!-- Step 1 -->
+          <div id="forgot-step1">
+            <form id="form-forgot" novalidate>
+              <div class="form-group">
+                <label for="forgot-email">Registered Email</label>
+                <input type="email" id="forgot-email" placeholder="your@email.com" />
+                <span class="field-error" id="err-forgot-email"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">Send Reset Link</button>
+            </form>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="forgot-step2" class="hidden">
+            <div class="forgot-success">
+              <div class="forgot-success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <h3>Check Your Email</h3>
+              <p>A password reset link has been sent to <strong id="forgot-sent-email"></strong>. Please check your inbox and follow the instructions.</p>
+              <p class="forgot-note">Note: This is a simulated flow — no actual email is sent.</p>
+            </div>
+          </div>
+
+          <div class="auth-links">
+            <a href="#" id="link-forgot-back">Back to Login</a>
+          </div>
+        </div>
+
+      </div><!-- /auth-card -->
+    </div><!-- /auth-bg -->
+  </div><!-- /auth-screen -->
+
+
+  <!-- ═══════════════════════════════════════════════
+       APP SCREEN
+  ════════════════════════════════════════════════ -->
+  <div id="app-screen" class="screen">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar-left">
+        <button class="navbar-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="navbar-brand">
+          <div class="navbar-brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <span>AICEE-TECH</span>
+        </div>
+      </div>
+
+      <div class="navbar-center" id="nav-links">
+        <a href="#" class="nav-link active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-link" data-page="records">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Patient Records
+        </a>
+        <a href="#" class="nav-link" data-page="archive">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+          Archive
+        </a>
+        <a href="#" class="nav-link nav-admin-only" data-page="users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          User Management
+        </a>
+      </div>
+
+      <div class="navbar-right">
+        <!-- Notifications Bell -->
+        <div class="notif-wrap" id="notif-wrap">
+          <button class="btn-icon" id="btn-notifications" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notif-badge hidden" id="notif-badge">0</span>
+          </button>
+          <div class="notif-dropdown hidden" id="notif-dropdown">
+            <div class="notif-header">
+              <span>Notifications</span>
+              <button class="btn-text" id="btn-mark-all-read">Mark all read</button>
+            </div>
+            <div class="notif-list" id="notif-list">
+              <div class="notif-empty">No notifications</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="btn-icon" id="btn-theme" aria-label="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+
+        <!-- User Profile -->
+        <div class="user-pill" id="user-pill">
+          <div class="user-avatar" id="user-avatar">A</div>
+          <div class="user-info">
+            <span class="user-name" id="user-name-display">Admin</span>
+            <span class="user-role" id="user-role-display">Clinic Admin</span>
+          </div>
+        </div>
+
+        <!-- Logout -->
+        <button class="btn btn-logout" id="btn-logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- PAGE CONTAINER -->
+    <main class="main-content" id="main-content">
+
+      <!-- ─── DASHBOARD PAGE ─── -->
+      <section id="page-dashboard" class="page active">
+        <div class="page-header">
+          <h2 class="page-title">Dashboard</h2>
+          <p class="page-subtitle">Overview of clinic activity</p>
+        </div>
+
+        <!-- Clock Widget -->
+        <div class="clock-card">
+          <div class="clock-time" id="clock-time">00:00:00</div>
+          <div class="clock-date" id="clock-date">—</div>
+          <div class="clock-label">Real-Time Clock</div>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card stat-primary">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-patients">0</span>
+              <span class="stat-label">Total Patients</span>
+            </div>
+          </div>
+          <div class="stat-card stat-success">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-admitted">0</span>
+              <span class="stat-label">Currently Admitted</span>
+            </div>
+          </div>
+          <div class="stat-card stat-info-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-discharged">0</span>
+              <span class="stat-label">Discharged</span>
+            </div>
+          </div>
+          <div class="stat-card stat-warning">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-total-records">0</span>
+              <span class="stat-label">Total Records</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Chart -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Monthly Patient Visits</h3>
+            <span class="chart-year" id="chart-year"></span>
+          </div>
+          <div class="chart-container">
+            <canvas id="visits-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── RECORDS PAGE ─── -->
+      <section id="page-records" class="page">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Patient Records</h2>
+            <p class="page-subtitle">Manage all active patient visit records</p>
+          </div>
+          <button class="btn btn-primary" id="btn-add-record">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Record
+          </button>
+        </div>
+
+        <div class="table-toolbar">
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="records-search" placeholder="Search by name or ID number…" class="search-input" />
+          </div>
+          <select id="records-per-page" class="select-sm">
+            <option value="10">10 per page</option>
+            <option value="25">25 per page</option>
+            <option value="50">50 per page</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="records-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID Number</th>
+                <th>Role</th>
+                <th>Chief Complaint</th>
+                <th>Date of Visit</th>
+                <th>Attending Aider</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody"></tbody>
+          </table>
+          <div class="table-empty hidden" id="records-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            No records found.
+          </div>
+        </div>
+
+        <div class="pagination" id="records-pagination"></div>
+      </section>
+
+      <!-- ─── ARCHIVE PAGE ─── -->
+      <section id="page-archive" class="page">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Archive</h2>
+            <p class="page-subtitle">View and manage archived patient records</p>
+          </div>
+        </div>
+
+        <div class="inline-metric-card">
+          <span class="inline-metric-value" id="archive-total-count">0</span>
+          <span class="inline-metric-label">Total Archived Patients</span>
+        </div>
+
+        <div class="table-toolbar">
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="archive-search" placeholder="Search archived records…" class="search-input" />
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="archive-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID Number</th>
+                <th>Role</th>
+                <th>Chief Complaint</th>
+                <th>Date of Visit</th>
+                <th>Attending Aider</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="archive-tbody"></tbody>
+          </table>
+          <div class="table-empty hidden" id="archive-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            No archived records.
+          </div>
+        </div>
+
+        <div class="pagination" id="archive-pagination"></div>
+      </section>
+
+      <!-- ─── USER MANAGEMENT PAGE ─── -->
+      <section id="page-users" class="page">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">User Management</h2>
+            <p class="page-subtitle">Admin-provisioned accounts only (no public signup)</p>
+          </div>
+        </div>
+
+        <!-- Admin Provisioning -->
+        <div class="section-card" id="provisioning-section">
+          <div class="section-card-header">
+            <h3>Admin User Provisioning</h3>
+          </div>
+          <div class="modal-body">
+            <form id="form-create-user" novalidate>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="new-user-name">Full Name *</label>
+                  <input type="text" id="new-user-name" placeholder="Employee full name" />
+                  <span class="field-error" id="err-new-user-name"></span>
+                </div>
+                <div class="form-group">
+                  <label for="new-user-email">Email *</label>
+                  <input type="email" id="new-user-email" placeholder="employee@clinic.com" />
+                  <span class="field-error" id="err-new-user-email"></span>
+                </div>
+                <div class="form-group">
+                  <label for="new-user-role">Role *</label>
+                  <select id="new-user-role">
+                    <option value="">-- Select Role --</option>
+                    <option value="admin">Admin</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="aider">Aider</option>
+                  </select>
+                  <span class="field-error" id="err-new-user-role"></span>
+                </div>
+                <div class="form-group">
+                  <label for="new-user-password">Temporary Password *</label>
+                  <input type="password" id="new-user-password" placeholder="Min. 6 characters" />
+                  <span class="field-error" id="err-new-user-password"></span>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Create User</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- All Users -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <h3>Provisioned Users</h3>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+            <div class="table-empty hidden" id="users-empty">No active users found.</div>
+          </div>
+        </div>
+      </section>
+
+    </main><!-- /main-content -->
+  </div><!-- /app-screen -->
+
+
+  <!-- ═══════════════════════════════════════════════
+       MODALS
+  ════════════════════════════════════════════════ -->
+
+  <!-- Record Form Modal (Add/Edit) -->
+  <div class="modal-backdrop hidden" id="modal-record-backdrop">
+    <div class="modal" id="modal-record">
+      <div class="modal-header">
+        <h3 id="modal-record-title">Add Patient Record</h3>
+        <button class="modal-close" data-close="modal-record-backdrop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-record" novalidate>
+          <input type="hidden" id="record-id" />
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="rec-fullname">Full Name *</label>
+              <input type="text" id="rec-fullname" placeholder="Patient full name" />
+              <span class="field-error" id="err-rec-fullname"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-idnumber">ID Number *</label>
+              <input type="text" id="rec-idnumber" placeholder="e.g. 2024-00001" />
+              <span class="field-error" id="err-rec-idnumber"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-role">Role *</label>
+              <select id="rec-role">
+                <option value="">-- Select Role --</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Staff">Staff</option>
+              </select>
+              <span class="field-error" id="err-rec-role"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-strand">Strand</label>
+              <input type="text" id="rec-strand" placeholder="e.g. STEM" />
+              <span class="field-error" id="err-rec-strand"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-gradelevel">Grade Level</label>
+              <input type="text" id="rec-gradelevel" placeholder="e.g. Grade 12" />
+              <span class="field-error" id="err-rec-gradelevel"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-section">Section</label>
+              <input type="text" id="rec-section" placeholder="e.g. Section A" />
+              <span class="field-error" id="err-rec-section"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-age">Age *</label>
+              <input type="number" id="rec-age" placeholder="e.g. 21" min="1" max="120" />
+              <span class="field-error" id="err-rec-age"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-weight">Weight (kg) *</label>
+              <input type="number" id="rec-weight" placeholder="e.g. 60" min="1" step="0.1" />
+              <span class="field-error" id="err-rec-weight"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-staff">Attending Aider *</label>
+              <input type="text" id="rec-staff" placeholder="Aider name" />
+              <span class="field-error" id="err-rec-staff"></span>
+            </div>
+            <div class="form-group">
+              <label for="rec-date">Date of Visit *</label>
+              <input type="date" id="rec-date" />
+              <span class="field-error" id="err-rec-date"></span>
+              <span class="field-hint">Allowed date range: last 7 days up to today.</span>
+            </div>
+            <div class="form-group">
+              <label for="rec-timein">Time-In *</label>
+              <input type="time" id="rec-timein" min="06:00" max="18:00" step="1" />
+              <span class="field-error" id="err-rec-timein"></span>
+              <span class="field-hint">Allowed time window: 06:00 AM to 06:00 PM.</span>
+            </div>
+            <div class="form-group">
+              <label for="rec-timeout">Time-Out <small>(optional)</small></label>
+              <input type="time" id="rec-timeout" min="06:00" max="18:00" step="1" />
+              <span class="field-error" id="err-rec-timeout"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rec-complaint">Chief Complaint *</label>
+            <textarea id="rec-complaint" rows="2" placeholder="Main reason for visit…"></textarea>
+            <span class="field-error" id="err-rec-complaint"></span>
+          </div>
+          <div class="form-group">
+            <label for="rec-history">Medical History</label>
+            <textarea id="rec-history" rows="2" placeholder="Relevant past medical history…"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="rec-diagnosis">Diagnosis</label>
+            <textarea id="rec-diagnosis" rows="2" placeholder="Assessment / Diagnosis…"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-record-backdrop">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-record">Save Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Record Modal -->
+  <div class="modal-backdrop hidden" id="modal-view-backdrop">
+    <div class="modal modal-wide" id="modal-view">
+      <div class="modal-header">
+        <h3>Patient Record Details</h3>
+        <button class="modal-close" data-close="modal-view-backdrop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-view-body">
+        <!-- Populated by JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-view-backdrop">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-backdrop hidden" id="modal-confirm-backdrop">
+    <div class="modal modal-sm" id="modal-confirm">
+      <div class="modal-header">
+        <h3 id="confirm-title">Confirm Action</h3>
+        <button class="modal-close" data-close="modal-confirm-backdrop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message">Are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="modal-confirm-backdrop">Cancel</button>
+        <button class="btn btn-danger" id="btn-confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/records.js"></script>
+  <script src="js/archive.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
